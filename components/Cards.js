@@ -25,16 +25,16 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
     .then((response) =>{
         console.log(response.data.articles)
         for (const article in response.data.articles){
+            const topic = article;
             response.data.articles[article].forEach((card) =>{
-                cardContainer.appendChild(createArticle(card));
-
+                cardContainer.appendChild(createArticle(card, topic));
             })
         }
     })
     .catch((errorResponse) =>{
     console.log(errorResponse);
     });
-function createArticle(article) {
+function createArticle(article, topicName) {
     
     // create elements
     const ce = document.createElement.bind(document);
@@ -52,9 +52,9 @@ function createArticle(article) {
     card.appendChild(headline);
     card.appendChild(author);
 
-
     // Adding classes
     card.classList.add('card');
+    card.classList.add(topicName);
     headline.classList.add('headline');
     author.classList.add('author');
     imgContainer.classList.add('img-container');
