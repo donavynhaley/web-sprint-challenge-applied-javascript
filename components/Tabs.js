@@ -9,3 +9,44 @@
 //    <div class="tab">topic here</div>
 //
 // NOTE: you do _not_ need to install axios as it's included in the HTML via script element
+
+const tabs = document.querySelector('.topics');
+axios.get('https://lambda-times-backend.herokuapp.com/topics')
+    .then((response) =>{
+        tabs.appendChild(createTopics('All'));
+        response.data.topics.forEach((topic) => {
+            tabs.appendChild(createTopics(topic));
+        });
+    })
+  .catch((errorResponse) =>{
+    console.log(errorResponse);
+  });
+
+  function createTopics(topic){
+      const tab = document.createElement('div');
+      tab.classList.add('tab');
+      tab.textContent = topic;
+
+      //tab.addEventListener('click', showByTopic(topic))
+      return tab;
+  }
+// Cant get it to work :(
+    /*
+const allTopics = document.querySelectorAll('.card');
+function showByTopic(topic){
+    if(topic == "all"){
+        allTopics.forEach((element) =>{
+            element.style.display = 'flex'
+        })
+    }
+    else{
+        allTopics.forEach((element) =>{
+            element.style.display = 'none'
+        })
+        const topicSelected = document.querySelector(`.card.${topic}`);
+        topicSelected.forEach((element) =>{
+            element.style.display="flex";
+        })
+    }
+    return;
+}*/
